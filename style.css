@@ -857,3 +857,19 @@ h2 {
     transition-duration: 0.01ms !important;
   }
 }
+
+.stock-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.stock-button:hover {
+  transform: translateY(-2px);
+}
