@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#faf7ff">
+  <title>AI Stock Analyzer | 智慧股票分析</title>
+  <link rel="stylesheet" href="./stock.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./stock.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="../">
+        <span class="brand-mark">✳</span>
+        <span>Stock<span class="brand-light">Lab</span></span>
+      </a>
+
+      <p class="nav-label">WORKSPACE</p>
+      <a class="nav-item active" href="./">◫　股票分析</a>
+      <a class="nav-item" href="#forecast">⌁　AI 價格預測</a>
+      <a class="nav-item" href="#evaluation">◎　模型評估</a>
+
+      <div class="sidebar-bottom">
+        <div class="avatar">AI</div>
+        <div>
+          <strong>AI Research Lab</strong>
+          <p>個人研究儀表板</p>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL MARKET LAB</p>
+          <h1>智慧股票分析 <span>✦</span></h1>
+          <p class="subtitle">用資料理解市場，用模型探索可能性。</p>
+        </div>
+        <span class="status-pill"><span class="status-dot"></span>研究模式</span>
+      </header>
+
+      <section class="search-panel">
+        <div>
+          <label for="stockCode">搜尋台灣股票</label>
+          <p>輸入股票代號，開始你的分析。</p>
+        </div>
+        <form id="stockSearchForm" class="search-form">
+          <span class="search-icon">⌕</span>
+          <input id="stockCode" type="text" value="2330"
+                 placeholder="例如：2330" maxlength="10"
+                 aria-label="股票代號" required>
+          <button type="submit">分析股票 ↗</button>
+        </form>
+      </section>
+
+      <div id="notice" class="notice" role="status">
+        目前為介面展示模式；圖表資料尚未連接即時行情。
+      </div>
+
+      <section class="stock-heading">
+        <div>
+          <div class="stock-name-row">
+            <h2 id="stockName">台積電</h2>
+            <span id="stockSymbol" class="symbol-tag">TWSE: 2330</span>
+          </div>
+          <p class="muted">台灣證券交易所 · 股票研究</p>
+        </div>
+        <div class="price-block">
+          <span class="muted">最新收盤價（示範）</span>
+          <div class="price" id="latestPrice">—</div>
+          <span id="priceChange" class="price-change">等待資料</span>
+        </div>
+      </section>
+
+      <section class="metric-grid">
+        <article class="metric-card">
+          <p>近 20 日報酬率</p>
+          <strong id="returnMetric">—</strong>
+          <span>歷史資料指標</span>
+        </article>
+        <article class="metric-card">
+          <p>近 20 日波動度</p>
+          <strong id="volatilityMetric">—</strong>
+          <span>歷史資料指標</span>
+        </article>
+        <article class="metric-card">
+          <p>20 日均線</p>
+          <strong id="movingAverage">—</strong>
+          <span>移動平均參考</span>
+        </article>
+        <article class="metric-card accent-card">
+          <p>模型預測狀態</p>
+          <strong id="modelStatus">尚未連接</strong>
+          <span>不代表實際投資報酬</span>
+        </article>
+      </section>
+
+      <section class="panel chart-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">MARKET OVERVIEW</p>
+            <h3>股價走勢與 AI 預測</h3>
+            <p class="muted">歷史行情與未來預測將使用不同線條呈現。</p>
+          </div>
+          <div class="chart-legend">
+            <span><i class="legend-dot history-dot"></i>歷史股價</span>
+            <span><i class="legend-dot forecast-dot"></i>預測示意</span>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="priceChart" aria-label="股價走勢圖"></canvas>
+        </div>
+        <p class="chart-footnote">
+          預測線不是保證價格；正式版本將以回測資料評估模型準確度。
+        </p>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel" id="forecast">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">AI FORECAST</p>
+              <h3>未來價格預測</h3>
+            </div>
+            <span class="soft-tag">研究中</span>
+          </div>
+          <div class="forecast-placeholder">
+            <span class="sparkle">✦</span>
+            <h4>讓模型預測有依據</h4>
+            <p>接上歷史行情與預測模型後，這裡會顯示預測曲線、預測區間及分析摘要。</p>
+          </div>
+          <div class="insight-box">
+            <strong>分析原則</strong>
+            <p>預測是對未來的估計，不是確定答案。我們會同時呈現模型表現與限制。</p>
+          </div>
+        </article>
+
+        <article class="panel" id="evaluation">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">MODEL EVALUATION</p>
+              <h3>模型準確度</h3>
+            </div>
+            <span class="soft-tag">待回測</span>
+          </div>
+          <div class="evaluation-row">
+            <div>
+              <strong>MAE</strong>
+              <p>平均絕對誤差</p>
+            </div>
+            <span>—</span>
+          </div>
+          <div class="evaluation-row">
+            <div>
+              <strong>RMSE</strong>
+              <p>均方根誤差</p>
+            </div>
+            <span>—</span>
+          </div>
+          <div class="evaluation-row">
+            <div>
+              <strong>方向準確率</strong>
+              <p>漲跌方向預測正確比例</p>
+            </div>
+            <span>—</span>
+          </div>
+          <p class="evaluation-note">
+            尚無正式回測結果。正式評估會使用過去資料訓練、未見資料測試，避免只展示漂亮的預測曲線。
+          </p>
+        </article>
+      </section>
+
+      <footer class="disclaimer">
+        <strong>研究用途聲明</strong>
+        <p>本網站為個人學習與資料分析專案。未來預測可能與實際行情不同，不構成投資建議。</p>
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
